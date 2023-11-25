@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Comentar Livro {{ livro.name }} ({{ livro.release_year }})</h2>
+
+<form action="{% url 'livros:review' livro.id %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Postar Comentário</button>
+</form>
+
+<p><a href="{% url 'livros:detail' livro.id %}">Voltar para a página do Livro</a></p>
+{% endblock content %}

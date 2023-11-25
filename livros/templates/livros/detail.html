@@ -1,0 +1,45 @@
+{% extends 'base.html' %} 
+{% block title %}
+  {{ livro.name }} ({{livro.release_year }})
+{% endblock title %}
+{% block content %}
+<h2>Detalhes do Livro {{ livro.name }} ({{ livro.release_year }})</h2>
+<section class="dados-de-livro">
+  <img src="{{ livro.poster_url }}" alt="Poster do livro {{ livro.name}}" />
+  <ul>
+    <li>Nome: {{ livro.name }}</li>
+    <li>Ano de Lançamento: {{ livro.release_year }}</li>
+    <li><a href="{% url 'livros:update' livro.id %}">Editar</a></li>
+    <li><a href="{% url 'livros:delete' livro.id %}">Apagar</a></li>
+  </ul>
+</section>
+
+<hr>
+
+<section>
+    <header>
+        <h3>Comentários</h3>
+    </header>
+    <ul>
+        {% if livro.review_set.all %}
+            {% for review in livro.review_set.all %}
+                <figure>
+                    <blockquote>
+                        "{{ review.text }}"
+                    </blockquote>
+                    <figcaption>—{{ review.author }}</figcaption>
+                </figure>
+            {% endfor %}
+        {% else %}
+            <p>Ainda não existe nenhum Comentário para este Livro.</p>
+        {% endif %}
+    </ul>
+
+    <hr>
+
+    <a href="{% url 'livros:review' livro.pk %}"><button>Adicione um Comentário</button></a>
+</section>
+
+</section>
+
+{% endblock content %}

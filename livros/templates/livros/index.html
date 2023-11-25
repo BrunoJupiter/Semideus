@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Todos os Livros</h2>
+
+  {% if livro_list %}
+    <section class="lista-de-cards">
+      {% for livro in livro_list %}
+        <article class="card">
+          <a href="{% url 'livros:detail' livro.id %}">
+            <img src="{{ livro.poster_url }}" alt="Poster do livro {{ livro.name }}">
+          </a>
+          <p>{{ livro.name }} ({{ livro.release_year }})</p>
+        </article>
+      {% endfor %}
+    </section>
+  {% else %}
+    <p>Não foi encontrado nenhum Livro.</p>
+  {% endif %}
+
+  <a href="{% url 'livros:create' %}">Adicionar Livro</a>
+{% endblock content %}

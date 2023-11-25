@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Listas
+{% endblock title %}
+
+{% block content %}
+<h2>SAGAS</h2>
+
+<section>
+    {% for list in list_list %}
+    <hr>
+    <article>
+        <header>
+            <h3>{{list.name}} (de {{ list.author }}) </h3>
+        </header>
+        <div class="lista-de-cards">
+            {% for livro in list.livros.all %}
+            <div class="card">
+                <a href="{% url 'livros:detail' livro.id %}">
+                    <img src="{{ livro.poster_url }}" alt="Poster do livro {{ livro.name}}">
+                </a>
+                <p>{{ livro.name }} ({{ livro.release_year }})</p>
+            </div>
+            {% endfor %}
+        </div>
+    </article>
+    {% endfor %}
+
+    <a href="{% url 'livros:create-list' %}"><button>Adicione Saga</button></a>
+</section>
+
+{% endblock content %}
